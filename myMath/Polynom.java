@@ -109,7 +109,7 @@ public class Polynom implements Polynom_able{
 		return fx;
 	}
 	/**
-	 * this method add a given polynom.
+	 * this method add a given polynom to our polynom.
 	 */
 	@Override
 	public void add(Polynom_able p1) { 
