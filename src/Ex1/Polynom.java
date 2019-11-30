@@ -63,14 +63,6 @@ public class Polynom implements Polynom_able{
 	 */
 	private void sortP() { 
 		Collections.sort(this.p, new Monom_Comperator());
-		for (int i=0; i<this.p.size();i++) {
-			for (int j=i+1; j<this.p.size();j++) {
-				if (this.p.get(i).get_power()==this.p.get(j).get_power()) {
-					this.p.get(i).add(this.p.get(j));
-					this.p.get(j).makeZero();
-				}
-			}
-		}
 		Iterator<Monom> it = this.iteretor();
 		while (it.hasNext()) {
 			if (it.next().isZero()) {it.remove();}
@@ -246,8 +238,9 @@ public class Polynom implements Polynom_able{
 	@Override
 	public Polynom_able copy() { 
 		Polynom newP = new Polynom();
-		for (int i=0; i<this.p.size();i++) {
-			newP.add(this.p.get(i));
+		for (int i=0; i<p.size();i++) {
+			Monom t = new Monom(p.get(i));
+			newP.add(t);
 		}
 		return newP;
 	}

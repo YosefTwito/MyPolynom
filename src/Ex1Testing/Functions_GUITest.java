@@ -1,10 +1,14 @@
 package Ex1Testing;
+import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import Ex1.Functions_GUI;
 import Ex1.Monom;
 import Ex1.Polynom;
 import Ex1.Range;
 import Ex1.function;
+
 /**
  * Partial JUnit + main test for the GUI_Functions class, expected output from the main:
  * 0) java.awt.Color[r=0,g=0,b=255]  f(x)= plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0)
@@ -15,7 +19,7 @@ import Ex1.function;
 5) java.awt.Color[r=0,g=255,b=0]  f(x)= max(max(max(max(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)
 6) java.awt.Color[r=255,g=175,b=175]  f(x)= min(min(min(min(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),plus(div(+1.0x +1.0,mul(mul(+1.0x +3.0,+1.0x -2.0),+1.0x -4.0)),2.0)),div(plus(-1.0x^4 +2.4x^2 +3.1,+0.1x^5 -1.2999999999999998x +5.0),-1.0x^4 +2.4x^2 +3.1)),-1.0x^4 +2.4x^2 +3.1),+0.1x^5 -1.2999999999999998x +5.0)
 
- * @author boaz_benmoshe
+ * @author YosefTwito
  *
  */
 class Functions_GUITest {
@@ -31,7 +35,7 @@ class Functions_GUITest {
 //	static void setUpBeforeClass() throws Exception {
 //	}
 
-	@BeforeEach
+	@BeforeEach 
 	void setUp() throws Exception {
 		_data = FunctionsFactory();
 	}
@@ -99,3 +103,4 @@ class Functions_GUITest {
 		return ans;
 	}
 }
+

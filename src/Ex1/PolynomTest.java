@@ -107,11 +107,11 @@ public class PolynomTest {
 		System.out.println();
 		System.out.println("*****test8*****");
 		Polynom p = new Polynom("x^2");
-		System.out.println("the area of: x^2"+p+" = "+p.area(0, 4,0.0001));
+		System.out.println("the area of: x^2 = "+p.area(0, 4,0.0001));
 		Polynom t = new Polynom("-x^3+6x-1");
-		System.out.println("the area of: -x^3+6x-1"+t+" = "+t.area(-2, 5,0.0001));
+		System.out.println("the area of: -x^3+6x-1 = "+t.area(-2, 5,0.0001));
 		Polynom r = new Polynom("7x^2-16x+2");
-		System.out.println("the area of: 7x^2-16x+2"+r+" = "+r.area(-14, 0,0.0001));
+		System.out.println("the area of: 7x^2-16x+2 = "+r.area(-14, 0,0.0001));
 	}
 	
 	public static void test9() {
