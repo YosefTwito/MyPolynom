@@ -1,8 +1,7 @@
-package myMath;
+package Ex1;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import myMath.Monom;
 
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
@@ -183,24 +182,37 @@ public class Polynom implements Polynom_able{
 	 * this method return true if the 2 polynoms are equal, otherwise return false.
 	 */
 	@Override
-	public boolean equals(Polynom_able p1) { 
-		boolean flag;
-		Monom temp;
-		Polynom t=(Polynom)p1.copy();
-		t.sortP();
-		this.sortP();
-		
-		Iterator<Monom> it = t.iteretor();
-		while (it.hasNext()) {
-			temp=it.next();
+	public boolean equals(Object p1) {
+		if (p1 instanceof Polynom ) {
+			Polynom p2 = (Polynom) p1;
+		Iterator <Monom> itr = p2.iteretor();
+		boolean flag = false;
+		int i =0;
+		while (itr.hasNext()) {
 			flag=false;
-			for (int i=0; i<this.p.size();i++) {
-				if (this.p.get(i).equals(temp)) {flag=true;}
+			i++;
+			Monom temp=	itr.next();
+			for (Monom monom : p) {
+				if (monom.equals(temp) && monom.get_power() == temp.get_power()) {
+					flag=true;
+				}
 			}
-			if (flag==false) {return false;}
+			if (!flag) {
+				return false;
+			}
 		}
+		if ( i != p.size()) return false;
 		return true;
+		}
+		else {
+			if (p1 instanceof Monom ) {
+				Monom moni_new = new Monom (this.toString());
+				p1.equals(moni_new);
+			}
+		}
+		return false;
 	}
+	
 	/**
 	 * this method return's true if polynom equals 0, false otherwise.
 	 */
@@ -282,6 +294,12 @@ public class Polynom implements Polynom_able{
 	public void multiply(Monom m1) {
 		Iterator<Monom> it = this.iteretor();
 		while(it.hasNext()) {it.next().multipy(m1);}
+	}
+
+	@Override
+	public function initFromString(String s) {
+		function polynom= new Polynom(s);
+		return polynom;
 	}
 	
 	//  ------------- good but find also roots out of range, do not check ------------

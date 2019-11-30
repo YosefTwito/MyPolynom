@@ -1,5 +1,4 @@
-
-package myMath;
+package Ex1;
 
 import java.util.Comparator;
 
@@ -24,6 +23,7 @@ public class Monom implements function{
 		this.set_coefficient(a);
 		this.set_power(b);
 	}
+
 	/**
 	 * copy Constructor.
 	 */
@@ -61,7 +61,6 @@ public class Monom implements function{
 	 */
 	public boolean isZero() {return this.get_coefficient() == 0;}
 
-	// ***************** add your code below **********************
 	/**
 	 * this method is a constructor that convert a string to new Monom.
 	 * @param s
@@ -207,9 +206,21 @@ public class Monom implements function{
 	 * @param other
 	 * @return true if equal, false otherwise.
 	 */
-	public boolean equals(Monom other) {
-		if(this.get_coefficient()==0 && other.get_coefficient()==0) {return true;}
-		return (this.get_coefficient()-other.get_coefficient()<EPSILON && this.get_power()==other.get_power());
+	
+	public boolean equals (Object other) {
+		if ( other instanceof Monom) {
+			Monom m1 = (Monom) other;
+		if ( this._coefficient ==0 && m1._coefficient==0) return true;
+		double between = this._coefficient - m1._coefficient;
+		if (Math.abs(between) <= EPSILON && this._power == m1._power) return true;
+		}
+		else {
+		if ( other instanceof Polynom) {
+			Polynom poly_new = new Polynom (this.toString());
+			return other.equals(poly_new);
+		}
+		}
+		return false;
 	}
 	
 	/**
@@ -220,7 +231,7 @@ public class Monom implements function{
 		this.set_coefficient(0);
 		this.set_power(0);
 	}
-	//****************** Private Methods and Data *****************
+	//****************** Methods and Data *****************
 
 	private void set_coefficient(double a){
 		this._coefficient = a;
@@ -232,5 +243,17 @@ public class Monom implements function{
 
 	private double _coefficient; 
 	private int _power;
+	
+	@Override
+	public function initFromString(String s) {
+	 function monom = new Monom (s);
+	 return monom;
+	}
+
+	@Override
+	public function copy() {
+		function monom_copy=new Monom (this.toString());
+		return monom_copy;
+	}
 
 }

@@ -1,4 +1,4 @@
-package myMath;
+package Ex1;
 import java.util.ArrayList;
 /**
  * This class represents a tester for the Monom class, 
