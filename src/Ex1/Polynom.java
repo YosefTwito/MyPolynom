@@ -133,11 +133,12 @@ public class Polynom implements Polynom_able{
 		for (int i = 0; i < this.p.size(); i++) {
 			if (this.p.get(i).get_power()==m1.get_power()) {
 				this.p.get(i).subtract(m1);
+				this.sortP();
 				return;
 			}
 		}
 		Monom temp = new Monom(-1*m1.get_coefficient(),m1.get_power());
-		this.p.add(temp);
+		p.add(temp);
 		this.sortP();
 	}
 	/**

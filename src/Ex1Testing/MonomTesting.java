@@ -121,7 +121,7 @@ class MonomTesting {
 				fail("Oh ****...");
 			}
 		}
-		
+
 	}
 
 	@Test
@@ -143,6 +143,6 @@ class MonomTesting {
 			if(!monom.equals(monom.copy())) {
 				fail("Ahh, that's bad.");
 			}
-			}
 		}
+	}
 }
