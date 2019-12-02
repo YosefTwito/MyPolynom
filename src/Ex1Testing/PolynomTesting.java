@@ -161,7 +161,7 @@ class PolynomTesting {
 
 	@Test
 	void testInitFromString() {
-		String s="x^5+3x-10";
+		String s="x^ 5+3 x-10";
 		Polynom po= new Polynom (s);			
 		if(!po.equals(po.initFromString(po.toString()))) {
 			fail("Nahh..");

@@ -126,7 +126,7 @@ class MonomTesting {
 
 	@Test
 	void testInitFromString() {
-		String[] monoms = {"4x", "-x", "8","-5x^7", "-9x^6"};
+		String[] monoms = {" 4x", "-x", "8","-5x^7", "-9x^6"};
 		for(int i=0;i<monoms.length;i++) {
 			Monom m= new Monom (monoms[i]);			
 			if(!m.equals(m.initFromString(monoms[i].toString()))) {

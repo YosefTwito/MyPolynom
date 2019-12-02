@@ -1,5 +1,4 @@
 package Ex1;
-
 import java.util.Comparator;
 
 /**
@@ -61,12 +60,21 @@ public class Monom implements function{
 	 */
 	public boolean isZero() {return this.get_coefficient() == 0;}
 
+	public String clearSpaces (String s) {
+		String t="";
+		for (int i=0; i<s.length(); i++) {
+			if (s.charAt(i)==' ') {continue;}
+			t=""+t+s.charAt(i);
+		}
+		return t;
+	}
+	
 	/**
 	 * this method is a constructor that convert a string to new Monom.
 	 * @param s
 	 */
 	public Monom(String s) { 
-
+		s=clearSpaces(s);
 		if (s.length()==0) {throw new RuntimeException("String is empty");}
 
 		String t=s.toLowerCase();
@@ -167,8 +175,14 @@ public class Monom implements function{
 	 * @param m
 	 */
 	public void subtract(Monom m) {
-		if (this.get_power()==m.get_power()) {this._coefficient-=m._coefficient;}
-		else {throw new RuntimeException("Can't subtarct, Monom's power unequal.");}
+		if (this.get_power()==m.get_power()) {
+			if (this.get_coefficient()==m.get_coefficient()) {
+				this.makeZero();
+			}
+			else {
+				this._coefficient-=m._coefficient;
+			}
+		}
 	}
 
 	/**
@@ -201,12 +215,12 @@ public class Monom implements function{
 		}
 		return ""+this.get_coefficient()+"x^"+this.get_power();
 	}
+	
 	/**
 	 * this method checks if the 2 Monoms are equal.
 	 * @param other
 	 * @return true if equal, false otherwise.
 	 */
-	
 	public boolean equals (Object other) {
 		if ( other instanceof Monom) {
 			Monom m1 = (Monom) other;

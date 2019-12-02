@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
+
 /**
  * This class represents a Polynom with add, multiply functionality, it also should support the following:
  * 1. Riemann's Integral: https://en.wikipedia.org/wiki/Riemann_integral
@@ -21,12 +22,22 @@ public class Polynom implements Polynom_able{
 	 */
 	public Polynom() {;}
 	
+	public String clearSpaces (String s) {
+		String t="";
+		for (int i=0; i<s.length(); i++) {
+			if (s.charAt(i)==' ') {continue;}
+			t=""+t+s.charAt(i);
+		}
+		return t;
+	}
+	
 	/**
 	 * init a Polynom from a String such as:
 	 *  {"x", "3+1.4x^3-34x", "2x^2-4", "-1.2x-7.1", "3-3.4x+1", "3.1x-1.2", "3X^2-3.1"};
 	 * @param s: is a string represents a Polynom
 	 */
 	public Polynom(String s) { 
+		s=clearSpaces(s);
 		if (s.length()==0) {throw new RuntimeException("String is empty");}
 		
 		int lastAdded_i=0;
@@ -63,12 +74,16 @@ public class Polynom implements Polynom_able{
 	 */
 	private void sortP() { 
 		Collections.sort(this.p, new Monom_Comperator());
-		Iterator<Monom> it = this.iteretor();
-		while (it.hasNext()) {
-			if (it.next().isZero()) {it.remove();}
-		}
+		this.remove_zero();
 	}
 	
+	private void remove_zero() {
+		for (int i =0 ; i< p.size() ; i++) {
+			if (p.get(i).get_coefficient() == 0) {
+				p.remove(i);
+			}
+		}
+	}
 	/**
 	 * this method convert a Polynom into a String and return te String.
 	 */
@@ -145,12 +160,13 @@ public class Polynom implements Polynom_able{
 	 * this method subtract a given polynom. 
 	 */
 	@Override
-	public void substract(Polynom_able p1) { 
+	public void substract(Polynom_able p1) {
 		Monom temp;
-		Iterator<Monom> it = p1.iteretor();
+		Polynom d=new Polynom(p1.toString());
+		Iterator<Monom> it = d.iteretor();
 		while (it.hasNext()) {
 			temp=it.next();
-			subtract(temp);
+			this.subtract(temp);
 		}
 		this.sortP();
 	}
@@ -269,10 +285,12 @@ public class Polynom implements Polynom_able{
 		if (x1-x0<eps) {throw new RuntimeException("cant compute area for higher eps than x-range");}
 		double curr=x0, ans=0;
 		while (curr+eps<x1) {
-			ans+=Math.abs((f(curr)*eps+f(curr+eps)*eps)/2);
+			if (((f(curr)*eps+f(curr+eps)*eps)/2)>0) {
+			ans+=((f(curr)*eps+f(curr+eps)*eps)/2); }
 			curr+=eps;
 		}
-		ans+=Math.abs((f(curr)*eps+f(x1)*eps)/2);
+		if (((f(curr)*eps+f(x1)*eps)/2)>0) {
+		ans+=((f(curr)*eps+f(x1)*eps)/2);}
 		return ans;
 	}
 
