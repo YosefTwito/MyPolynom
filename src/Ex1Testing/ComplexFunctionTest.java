@@ -49,20 +49,24 @@ class ComplexFunctionTest {
 		Polynom p1 = new Polynom(s1);
 		Polynom p2 = new Polynom(s2);
 		ComplexFunction c1 = new ComplexFunction("Plus", p1, p2);
-		String expected = "plus(2.0x,-6.0x)";
+		ComplexFunction c2 = new ComplexFunction("Plus", p2, p1);
+		ComplexFunction c3 = new ComplexFunction("Max", c2, c1);
+		c2 = new ComplexFunction("Plus", c3, p1);
+		c1 = new ComplexFunction("Plus", c3, c2);
+		//System.out.println(c1.toString());
+		String expected = "plus(max(plus(-6.0x,2.0x),plus(2.0x,-6.0x)),plus(max(plus(-6.0x,2.0x),plus(2.0x,-6.0x)),2.0x))";
 		if (!(c1.toString().equals(expected))) { fail("Bye bye"); }
 	}
 
 	@Test
 	void testInitFromString() {
-		String s = "plus(2.0x,-6.0)";
-		Polynom p1 = new Polynom("0");
-		ComplexFunction t = new ComplexFunction(p1);
-		function t2 = t.initFromString(s);
-		if(!(t2.toString().equals(s))) {
-			fail();
-		}
-		
+		String s1 = "0";
+		Polynom p1 = new Polynom(s1);
+		function x = new ComplexFunction(p1);
+		String expected = "plus(max(plus(-6.0x,2.0x),plus(2.0x,-6.0x)),plus(max(plus(-6.0x,2.0x),plus(2.0x,-6.0x)),2.0x))";
+		x = x.initFromString(expected);
+		System.out.println(x);
+		if (!(x.toString().equals(expected))) { fail(); }
 	}
 
 	@Test

@@ -165,7 +165,8 @@ public class ComplexFunction implements complex_function {
 	private int splitPoint (String s , int i) {
 		int comma=0;
 		int opener=1;
-		int Split=0;
+		int closer=0;
+		int SplitAt=0;
 		while(i != s.length()) {
 			if(s.charAt(i)=='(') {
 				opener++;
@@ -173,12 +174,16 @@ public class ComplexFunction implements complex_function {
 			if(s.charAt(i)==',') {
 				comma++;
 			}
+			if(s.charAt(i)==')') {
+				closer++;
+			}
 			if(comma==opener && s.charAt(i) == ',') {
-				Split=i;
+				SplitAt=i;
+				return SplitAt;
 			}
 			i++;
-		}
-		return Split;
+		}		
+		return SplitAt;
 	}
 
 	/**
