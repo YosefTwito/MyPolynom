@@ -1,87 +1,77 @@
 package Ex1;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class Functions_GUI implements functions{
+	
+	ArrayList<function> G = new ArrayList<function>();
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return G.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return G.isEmpty();
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		return G.contains(o);
 	}
 
 	@Override
 	public Iterator<function> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return G.iterator();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return G.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
+		return G.toArray(a);
 	}
 
 	@Override
 	public boolean add(function e) {
-		// TODO Auto-generated method stub
-		return false;
+		 return G.add(e);
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		return G.remove(o);
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return G.containsAll(c);
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends function> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return G.addAll(c);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return G.removeAll(c);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		return G.retainAll(c);
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		G.clear();
 	}
 
 	@Override

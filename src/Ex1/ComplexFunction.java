@@ -6,6 +6,8 @@ public class ComplexFunction implements complex_function {
 	function r;
 	Operation OP;
 	
+	public ComplexFunction () {;}
+	
 	public ComplexFunction (String o, function l , function r) {
 
 		if ( l != null ) {
@@ -165,7 +167,6 @@ public class ComplexFunction implements complex_function {
 	private int splitPoint (String s , int i) {
 		int comma=0;
 		int opener=1;
-		int closer=0;
 		int SplitAt=0;
 		while(i != s.length()) {
 			if(s.charAt(i)=='(') {
@@ -173,9 +174,6 @@ public class ComplexFunction implements complex_function {
 			}
 			if(s.charAt(i)==',') {
 				comma++;
-			}
-			if(s.charAt(i)==')') {
-				closer++;
 			}
 			if(comma==opener && s.charAt(i) == ',') {
 				SplitAt=i;
@@ -197,7 +195,8 @@ public class ComplexFunction implements complex_function {
 	
 	/**
 	 * this method return true if the complex functions identically equals.
-	 * if not, try to understand if those are logically approximately equals.
+	 * if not, try to understand if those are approximately equals.
+	 * (Compare those functions 
 	 * @param ot
 	 * @return true if ot equals to this complex function, otherwise return false.
 	 */
