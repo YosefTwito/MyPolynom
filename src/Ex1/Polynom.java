@@ -72,7 +72,15 @@ public class Polynom implements Polynom_able{
 	/**
 	 * this method sort the Monoms inside a Polynom.
 	 */
-	private void sortP() { 
+	public void sortP() { 
+		for (int i=0; i<this.p.size();i++) {
+			for (int j=i+1; j<this.p.size();j++) {
+				if (this.p.get(i).get_power()==this.p.get(j).get_power()) {
+					this.p.get(i).add(this.p.get(j));
+					this.p.get(j).makeZero();
+				}
+			}
+		}
 		Collections.sort(this.p, new Monom_Comperator());
 		this.remove_zero();
 	}

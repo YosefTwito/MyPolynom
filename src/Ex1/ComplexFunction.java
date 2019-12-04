@@ -57,8 +57,6 @@ public class ComplexFunction implements complex_function {
 				return this.l.f(this.r.f(x));
 			}
 				return this.l.f(x);
-				
-		case "None" :		
 		}
 		return 0;
 	}
@@ -121,6 +119,7 @@ public class ComplexFunction implements complex_function {
 		int i=0;
 		if (s.indexOf('(') == -1 && s.indexOf(')') == -1) { 
 			Polynom po = new Polynom (s);
+			po.sortP();
 			function fun= new ComplexFunction(po);
 			return fun;
 		}
