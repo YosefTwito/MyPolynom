@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.google.gson.Gson;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class Functions_GUI implements functions{
 	
@@ -95,6 +97,9 @@ public class Functions_GUI implements functions{
 	}
 
 	@Override
+	/**
+	 * this method initialize G functions from a given text file.
+	 */
 	public void initFromFile(String file) throws IOException {
 		G = new ArrayList<function>();
 		function t = new ComplexFunction();
@@ -117,6 +122,9 @@ public class Functions_GUI implements functions{
 	}
 
 	@Override
+	/**
+	 * this mmethod write the G functions in a given text file.
+	 */
 	public void saveToFile(String file) throws IOException {
 		
 		Iterator<function> it = G.iterator();
@@ -141,8 +149,10 @@ public class Functions_GUI implements functions{
 	}
 
 	@Override
+	/**
+	 * this method draws the G functions on a canvas window with Axiss.
+	 */
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		
 		
 		StdDraw.setCanvasSize(width, height);
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
@@ -160,7 +170,7 @@ public class Functions_GUI implements functions{
 		StdDraw.setPenColor(Color.BLACK);
 		StdDraw.setPenRadius(0.005);
 	
-		StdDraw.setFont(new Font("Calibri", Font.BOLD, 15));
+		StdDraw.setFont(new Font("Calibri", Font.ITALIC, 14));
 		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
 		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
 		//Numbers on Axis
@@ -184,7 +194,7 @@ public class Functions_GUI implements functions{
 			}
 		}
 		
-		/*//Not enoght color -- Do not use eventually.
+		/* --//Not enoght colors -- Did not use eventually.--
 		for (int j=0; j<G.size(); j++) {
 			double step = (Math.abs(rx.get_min())+Math.abs(rx.get_max()))/resolution;
 			Color color = colors[j%8];
@@ -199,23 +209,46 @@ public class Functions_GUI implements functions{
 	}
 			
 	@Override
-	public void drawFunctions(String json_file) {///////////////////still on procces.
+	/**
+	 * this method reads the parameters out of json file and draw the G functions on a canvas.
+	 */
+	public void drawFunctions(String json_file) {
 
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
+		double [] Range_X = {-10,10};
+		double [] Range_Y = {-5,-15};
 		
-		Gson gson = new Gson();
-		try 
-		{
-			FileReader reader = new FileReader("json_file");
+		try {
+			JSONObject o = (JSONObject)new JSONParser().parse(new FileReader(json_file));
+			JSONArray X;
+			JSONArray Y;
+			if(o.get("Width")	   != null){   w = Math.toIntExact((long) o.get("Width")); }
+			if(o.get("Height") 	   != null){   h = Math.toIntExact((long) o.get("Height")); }
+			if(o.get("Resolution") != null){ res = Math.toIntExact((long) o.get("Resolution")); }
 			
-		} 
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
+			if(o.get("Range_X")    != null){
+				X = (JSONArray) o.get("Range_X");
+				Iterator<Long> it = X.iterator();
+				int i=0;
+				while(it.hasNext() && i<2){ Range_X[i++] = (double)it.next().doubleValue(); }					
+			}
+			
+			if(o.get("Range_Y") != null){
+				Y = (JSONArray) o.get("Range_Y");
+				Iterator<Long> itr = Y.iterator();
+				int i=0;
+				while(itr.hasNext() && i<2){ Range_Y[i++] = (double)itr.next().doubleValue(); }					
+			}
+			
+			rx = new Range(Range_X[0], Range_X[1]);
+			ry = new Range(Range_Y[0], Range_Y[1]);
+			drawFunctions(w, h, rx, ry, res);
 		}
-		
-		drawFunctions(w, h, rx, ry, res);
+		catch (Exception e) {
+		}
+
 	}
 
 }

@@ -10,6 +10,10 @@ public class Range {
 		set_min(min);
 		set_max(max);
 	}
+	public Range (Range other) {
+		this.set_min(other.get_min());
+		this.set_max(other.get_max());
+	}
 	public boolean isIn(double d) {
 		boolean inSide = false;
 		if(d>=this.get_min() && d<=this.get_max()) {inSide=true;}

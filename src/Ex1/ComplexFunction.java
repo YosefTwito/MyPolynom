@@ -57,7 +57,10 @@ public class ComplexFunction implements complex_function {
 				return this.l.f(this.r.f(x));
 			}
 				return this.l.f(x);
-		}
+		
+		case "None" :
+			return this.l.f(x);
+		}	
 		return 0;
 	}
 
@@ -149,7 +152,7 @@ public class ComplexFunction implements complex_function {
 			
 			case "comp"	: s4="Comp"; break;
 				
-				default: s4="None"; break;
+				default : s4="None"; break;
 			
 			}
 			function fun= new ComplexFunction(s4, left, right);
@@ -193,24 +196,24 @@ public class ComplexFunction implements complex_function {
 	}
 	
 	/**
-	 * this method return true if the complex functions identically equals.
-	 * if not, try to understand if those are approximately equals.
-	 * (Compare those functions 
-	 * @param ot
-	 * @return true if ot equals to this complex function, otherwise return false.
+	 * this method try to understand if those are approximately equals.
+	 * (Compare those functions in many x-values to understand it.) 
+	 * @return true if ot approximately equals to this complex function, otherwise return false.
 	 */
 	@Override
 	public boolean equals (Object ot) {
 		
-		if (!(ot instanceof ComplexFunction)) { return false; }
+	/*	if ((ot instanceof ComplexFunction)) { return false; }
 		boolean flag = true;
 		ComplexFunction c = (ComplexFunction)ot;
 		if (this.l!=c.l)   { flag = false; }
 		if (this.OP!=c.OP) { flag = false; }
 		if (this.r!=c.r)   { flag = false; }
 		
-		if (flag==true) { return true; }
+		if (flag==true) { return true; }*/
 		
+		ComplexFunction c = (ComplexFunction)ot;
+
 		for (int i=-10; i<10; i++) 
 		{ if (Math.abs(this.f(i)-c.f(i))>0.0001) { return false; } }
 			

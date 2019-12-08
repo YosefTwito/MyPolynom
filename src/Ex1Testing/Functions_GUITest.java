@@ -35,6 +35,7 @@ class Functions_GUITest {
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
 		data.drawFunctions(w,h,rx,ry,res);
+		//data.drawFunctions("ab.txt");
 	}
 	
 	private Functions_GUI _data=null;
@@ -87,13 +88,7 @@ class Functions_GUITest {
 			e.printStackTrace();
 		}
 	}
-/*
-	@Test
-	void testDrawFunctionsIntIntRangeRangeInt() {
-		_data.drawFunctions();
-		fail("Not yet implemented");
-	}
-*/	
+
 public static Functions_GUI FunctionsFactory() {
 		Functions_GUI ans = new Functions_GUI();
 		String s1 = "3.1 +2.4x^2 -x^4";
