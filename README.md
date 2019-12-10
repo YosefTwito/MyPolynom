@@ -7,7 +7,4 @@ This project is about Polynoms and polynomial Complex Functions, creating and ha
 useful functions (Drawing, Computing area, etc..) described in the wiki pages.
 
 The main purpose of my project is to visually draw polynomial functions.
-I used StdDraw from (https://introcs.cs.princeton.edu/java/stdlib/) to make a new window and print functions on it (adding ScreenShot at the bottom of this file).
-
-
-/////gotta add ScreenShot of drawable ////////
+I used StdDraw from (https://introcs.cs.princeton.edu/java/stdlib/) to make a new window and print functions on it.
