@@ -3,30 +3,7 @@
 This project is about Polynoms, creating and handling them in Java, including some
 useful functions I will describe in this document.
 
-The Monom:
-Monom is a mathematical function represent by ax^b. the variables are:
-Coefficient: a double that represent a.
-Power: an int that represent b.
 
-The functions of the Monom are:
-
-Getters/Setters : to adjust an existing Monom.
-
-Constructors:
-Monom(double a, int b): Set a new Monom with coefficient=a and power=b.
-Monom(Monom ot): Set a new Monom equal to the ot Monom.
-Monom(String s): Set a new Monom with values converted of the String.
-
-Functions:
-add(Monom m): add m to our Monom.
-subtract(Monom m): to subtract m from our Monom.
-multiply(Monom m): to multiply to our Monom.
-equals(Monom other): check and return if other Monom equals to ours.
-makeZero(): to make our Monom's value equal 0.
-IsZero(): to check and return if Monom equal 0.
-derivative(): returns new Monom which is the derivative of our Monom.
-f(double x): to compute the value of the Monom at point x.
-toString(): prints the Monom in the form of ax^b.
 
 The Polynom: 
 Polynom is a collection of Monoms, in the shape of ArrayList<Monom>.
