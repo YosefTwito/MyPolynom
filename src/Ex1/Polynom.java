@@ -16,12 +16,12 @@ import java.util.Iterator;
 public class Polynom implements Polynom_able{
 
 	ArrayList<Monom> p = new ArrayList<Monom>();
-	
+
 	/**
 	 * Zero (empty polynom)
 	 */
 	public Polynom() {;}
-	
+
 	public String clearSpaces (String s) {
 		String t="";
 		for (int i=0; i<s.length(); i++) {
@@ -30,7 +30,7 @@ public class Polynom implements Polynom_able{
 		}
 		return t;
 	}
-	
+
 	/**
 	 * init a Polynom from a String such as:
 	 *  {"x", "3+1.4x^3-34x", "2x^2-4", "-1.2x-7.1", "3-3.4x+1", "3.1x-1.2", "3X^2-3.1"};
@@ -39,12 +39,12 @@ public class Polynom implements Polynom_able{
 	public Polynom(String s) { 
 		s=clearSpaces(s);
 		if (s.length()==0) {throw new RuntimeException("String is empty");}
-		
+
 		int lastAdded_i=0;
 		String temp="";
-		
+
 		for (int i=0; i<s.length(); i++) {
-			
+
 			if (s.charAt(i)=='+' || s.charAt(i)=='-') {
 				if (i==0 && s.charAt(i)=='-') { continue; }
 				temp=s.substring(lastAdded_i, i);
@@ -54,7 +54,7 @@ public class Polynom implements Polynom_able{
 				}
 				catch (Exception e) { throw new RuntimeException("This is not a legal Polynom.");}
 				lastAdded_i=i;
-				
+
 			}
 			if (i==s.length()-1) {
 				temp=s.substring(lastAdded_i);
@@ -66,9 +66,9 @@ public class Polynom implements Polynom_able{
 			}
 		}
 		sortP();
-		
+
 	}
-	
+
 	/**
 	 * this method sort the Monoms inside a Polynom.
 	 */
@@ -84,7 +84,7 @@ public class Polynom implements Polynom_able{
 		Collections.sort(this.p, new Monom_Comperator());
 		this.remove_zero();
 	}
-	
+
 	private void remove_zero() {
 		for (int i =0 ; i< p.size() ; i++) {
 			if (p.get(i).get_coefficient() == 0) {
@@ -109,14 +109,14 @@ public class Polynom implements Polynom_able{
 		}
 		return ans;
 	}
-	
+
 	/**
 	 * this method return the value of the polynom at given point x.
 	 */
 	@Override
 	public double f(double x) { 
 		double fx=0;
-		
+
 		for (int i=0; i<this.p.size(); i++) {
 			fx+=this.p.get(i).f(x);
 		}
@@ -199,37 +199,35 @@ public class Polynom implements Polynom_able{
 	 * this method return true if the 2 polynoms are equal, otherwise return false.
 	 */
 	@Override
-	public boolean equals(Object p1) {
-		if (p1 instanceof Polynom ) {
-			Polynom p2 = (Polynom) p1;
-		Iterator <Monom> itr = p2.iteretor();
-		boolean flag = false;
-		int i =0;
-		while (itr.hasNext()) {
-			flag=false;
-			i++;
-			Monom temp=	itr.next();
-			for (Monom monom : p) {
-				if (monom.equals(temp) && monom.get_power() == temp.get_power()) {
-					flag=true;
-				}
+	public boolean equals(Object obj) {
+		
+		if (obj instanceof Polynom) {
+			Polynom p2 = new Polynom(obj.toString());
+			Polynom p3 = new Polynom(this.toString());
+			Iterator <Monom> it2 = p2.iteretor();
+			Iterator <Monom> it3 = p3.iteretor();
+			while (it2.hasNext() && it3.hasNext()) {
+				if (!(it2.next().equals(it3.next()))){ return false; }
 			}
-			if (!flag) {
-				return false;
+			if ((!(it2.hasNext())) && (!(it3.hasNext()))){
+				return true;
 			}
+		return false;
 		}
-		if ( i != p.size()) return false;
-		return true;
+		
+		if (obj instanceof Monom) {
+			Polynom p1 = new Polynom(obj.toString());
+			return (p1.equals(obj));
 		}
-		else {
-			if (p1 instanceof Monom ) {
-				Monom moni_new = new Monom (this.toString());
-				p1.equals(moni_new);
-			}
+		
+		if (obj instanceof ComplexFunction) {
+			ComplexFunction cf = new ComplexFunction(this);
+			return (obj.equals(cf));
 		}
 		return false;
 	}
 	
+
 	/**
 	 * this method return's true if polynom equals 0, false otherwise.
 	 */
@@ -294,11 +292,11 @@ public class Polynom implements Polynom_able{
 		double curr=x0, ans=0;
 		while (curr+eps<x1) {
 			if (((f(curr)*eps+f(curr+eps)*eps)/2)>0) {
-			ans+=((f(curr)*eps+f(curr+eps)*eps)/2); }
+				ans+=((f(curr)*eps+f(curr+eps)*eps)/2); }
 			curr+=eps;
 		}
 		if (((f(curr)*eps+f(x1)*eps)/2)>0) {
-		ans+=((f(curr)*eps+f(x1)*eps)/2);}
+			ans+=((f(curr)*eps+f(x1)*eps)/2);}
 		return ans;
 	}
 
@@ -321,7 +319,7 @@ public class Polynom implements Polynom_able{
 		function polynom= new Polynom(s);
 		return polynom;
 	}
-	
+
 	//  ------------- good but find also roots out of range, do not check ------------
 	/*	public double root(double x0, double x1, double eps) {
 	if (eps<=0) { throw new RuntimeException("eps should be positive none zero");}
@@ -335,5 +333,5 @@ public class Polynom implements Polynom_able{
 	}
 	return currX;
 }*/
-	
+
 }

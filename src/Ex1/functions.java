@@ -26,7 +26,7 @@ public interface functions extends Collection<function>{
  * @param height - the height of the window - in pixels
  * @param rx - the range of the horizontal axis
  * @param ry - the range of the vertical axis
- * @param resolution - the number of samples with in rx: the X_step = rx/resulution
+ * @param resolution - the number of samples within rx: the X_step = rx/resulution
  */
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution);
 /**

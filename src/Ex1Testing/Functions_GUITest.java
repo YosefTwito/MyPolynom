@@ -35,7 +35,7 @@ class Functions_GUITest {
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
-		//data.drawFunctions(w,h,rx,ry,res);
+		data.drawFunctions(w,h,rx,ry,res);
 		data.drawFunctions("json_param.txt");
 	}
 	
@@ -50,45 +50,44 @@ class Functions_GUITest {
 	}
 
 	@Test
-	void testInitFromFile() {
+	void testInitAndSaveFile() {
 		
 		function t = new ComplexFunction();
-		String [] expectedS = {"plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0)" , 
+		String [] expectedS = {"plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0)" , 
 				"plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)" ,
-				"div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)" , 
+				"div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)" , 
 				"-1.0x^4+2.4x^2+3.1" ,
-				"0.1x^5-1.2999999999999998x+5.0" , 
-				"max(max(max(max(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.2999999999999998x+5.0)" ,
-				"min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.2999999999999998x+5.0)" };
+				"0.1x^5-1.3x+5.0" , 
+				"max(max(max(max(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.3x+5.0)" ,
+				"min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.3x+5.0)" };
 		
-		Functions_GUI expectedF = new Functions_GUI();
+		
+		Functions_GUI Fit = new Functions_GUI();
 		for (int j=0; j<expectedS.length; j++) {
-			expectedF.add(t.initFromString(expectedS[j]));
+			Fit.add(t.initFromString(expectedS[j]));
 		}
 		
 		try {
-			_data.initFromFile("funcs.txt");
+			Fit.saveToFile("testIt.txt");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		Functions_GUI Fnew = new Functions_GUI();
+
+		try {
+			Fnew.initFromFile("testIt.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		Iterator<function> i = _data.iterator();
-		Iterator<function> k = expectedF.iterator();
-
-		while (i.hasNext() && k.hasNext()) { 
-			i.next(); k.next();
-			if (!(i.next().equals(k.next()))) { fail(); }
-			}
-	}
-
-	@Test
-	void testSaveToFile() {
-		try {
-			_data.saveToFile("funcs.txt");
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (Fit.size()!=Fnew.size()) { fail(); }
+		
+		for (int i=0; i<Fit.size();i++) {
+			if (!(Fit.get(i).equals(Fnew.get(i)))){ fail(); }
 		}
 	}
+
 
 	public static functions FunctionsFactory() {
 		functions ans = new Functions_GUI();

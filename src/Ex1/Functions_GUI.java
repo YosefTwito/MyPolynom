@@ -20,9 +20,7 @@ import org.json.simple.parser.JSONParser;
 public class Functions_GUI implements functions{
 	
 	ArrayList<function> G = new ArrayList<function>();
-	
-	Color [] colors = {Color.BLUE, Color.DARK_GRAY, Color.MAGENTA, Color.GREEN, Color.ORANGE, Color.CYAN, Color.RED, Color.PINK };
-	
+		
 	public Functions_GUI() {
 		G = new ArrayList<function>();
 	}
@@ -155,6 +153,7 @@ public class Functions_GUI implements functions{
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
 		
 		StdDraw.setCanvasSize(width, height);
+		//Drawing Axis
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
 		
@@ -166,14 +165,14 @@ public class Functions_GUI implements functions{
 		for (double i = ry.get_min(); i <= ry.get_max(); i++) {
 			StdDraw.line(rx.get_min(), i, rx.get_max(), i);
 		}
-		//Drawing Axis
+		
 		StdDraw.setPenColor(Color.BLACK);
 		StdDraw.setPenRadius(0.005);
-	
+		//Numbers on Axis
 		StdDraw.setFont(new Font("Calibri", Font.ITALIC, 14));
 		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
 		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
-		//Numbers on Axis
+		
 		for (double i = rx.get_min(); i <= rx.get_max(); i++) {
 			StdDraw.text(i, -0.30, Integer.toString(Math.toIntExact((long) i)));
 		}

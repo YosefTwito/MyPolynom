@@ -7,8 +7,8 @@ import java.util.Comparator;
  * see: https://en.wikipedia.org/wiki/Monomial 
  * The class implements function and support simple operations as: construction, value at x, derivative, add and multiply. 
  * @author YosefTwito
- *
  */
+
 public class Monom implements function{
 	public static final Monom ZERO = new Monom(0,0);
 	public static final Monom MINUS1 = new Monom(-1,0);
@@ -68,7 +68,7 @@ public class Monom implements function{
 		}
 		return t;
 	}
-	
+
 	/**
 	 * this method is a constructor that convert a string to new Monom.
 	 * @param s
@@ -215,28 +215,33 @@ public class Monom implements function{
 		}
 		return ""+this.get_coefficient()+"x^"+this.get_power();
 	}
-	
+
 	/**
 	 * this method checks if the 2 Monoms are equal.
-	 * @param other
+	 * @param obj
 	 * @return true if equal, false otherwise.
 	 */
-	public boolean equals (Object other) {
-		if ( other instanceof Monom) {
-			Monom m1 = (Monom) other;
-		if ( this._coefficient ==0 && m1._coefficient==0) return true;
-		double between = this._coefficient - m1._coefficient;
-		if (Math.abs(between) <= EPSILON && this._power == m1._power) return true;
+	public boolean equals (Object obj) {
+		if (obj instanceof Monom) {
+			Monom m1 = (Monom)obj;
+			if ( this.get_coefficient()==0 && m1.get_coefficient()==0) return true;
+			if (this.get_power()==m1.get_power()) {
+				if (Math.abs(this.get_coefficient()-m1.get_coefficient())>EPSILON) { return false; }
+			}
+			return true;
 		}
-		else {
-		if ( other instanceof Polynom) {
-			Polynom poly_new = new Polynom (this.toString());
-			return other.equals(poly_new);
+		if (obj instanceof Polynom) {
+			Polynom p1 = new Polynom(this.toString());
+			return p1.equals(obj);
 		}
+		if (obj instanceof ComplexFunction) {
+			Polynom p1 = new Polynom(this.toString());
+			function cf = new ComplexFunction(p1);
+			return (cf.equals(obj));
 		}
 		return false;
 	}
-	
+
 	/**
 	 * this method make a Monom to be equal to 0.
 	 * Assistant for Monom sort.
@@ -257,11 +262,11 @@ public class Monom implements function{
 
 	private double _coefficient; 
 	private int _power;
-	
+
 	@Override
 	public function initFromString(String s) {
-	 function monom = new Monom (s);
-	 return monom;
+		function monom = new Monom (s);
+		return monom;
 	}
 
 	@Override
