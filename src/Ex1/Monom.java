@@ -24,7 +24,7 @@ public class Monom implements function{
 	}
 
 	/**
-	 * copy Constructor.
+	 * Copy Constructor.
 	 */
 	public Monom(Monom ot) {
 		this(ot.get_coefficient(), ot.get_power());

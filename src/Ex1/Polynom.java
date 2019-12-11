@@ -200,7 +200,7 @@ public class Polynom implements Polynom_able{
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (obj instanceof Polynom) {
 			Polynom p2 = new Polynom(obj.toString());
 			Polynom p3 = new Polynom(this.toString());
@@ -212,21 +212,21 @@ public class Polynom implements Polynom_able{
 			if ((!(it2.hasNext())) && (!(it3.hasNext()))){
 				return true;
 			}
-		return false;
+			return false;
 		}
-		
+
 		if (obj instanceof Monom) {
 			Polynom p1 = new Polynom(obj.toString());
 			return (p1.equals(obj));
 		}
-		
+
 		if (obj instanceof ComplexFunction) {
 			ComplexFunction cf = new ComplexFunction(this);
 			return (obj.equals(cf));
 		}
 		return false;
 	}
-	
+
 
 	/**
 	 * this method return's true if polynom equals 0, false otherwise.

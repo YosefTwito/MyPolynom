@@ -38,12 +38,12 @@ class Functions_GUITest {
 		data.drawFunctions(w,h,rx,ry,res);
 		data.drawFunctions("json_param.txt");
 	}
-	
+
 	private Functions_GUI _data=null;
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {;}
-	
+
 	@BeforeEach 
 	void setUp() throws Exception {
 		_data = (Functions_GUI)FunctionsFactory();
@@ -51,7 +51,7 @@ class Functions_GUITest {
 
 	@Test
 	void testInitAndSaveFile() {
-		
+
 		function t = new ComplexFunction();
 		String [] expectedS = {"plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0)" , 
 				"plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)" ,
@@ -59,20 +59,20 @@ class Functions_GUITest {
 				"-1.0x^4+2.4x^2+3.1" ,
 				"0.1x^5-1.3x+5.0" , 
 				"max(max(max(max(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.3x+5.0)" ,
-				"min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.3x+5.0)" };
-		
-		
+		"min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.3x+5.0)" };
+
+
 		Functions_GUI Fit = new Functions_GUI();
 		for (int j=0; j<expectedS.length; j++) {
 			Fit.add(t.initFromString(expectedS[j]));
 		}
-		
+
 		try {
 			Fit.saveToFile("testIt.txt");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		Functions_GUI Fnew = new Functions_GUI();
 
 		try {
@@ -80,9 +80,9 @@ class Functions_GUITest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (Fit.size()!=Fnew.size()) { fail(); }
-		
+
 		for (int i=0; i<Fit.size();i++) {
 			if (!(Fit.get(i).equals(Fnew.get(i)))){ fail(); }
 		}
@@ -101,7 +101,7 @@ class Functions_GUITest {
 		for(int i=1;i<s3.length;i++) {
 			cf3.mul(new Polynom(s3[i]));
 		}
-		
+
 		ComplexFunction cf = new ComplexFunction("Plus", p1,p2);
 		ComplexFunction cf4 = new ComplexFunction("Divid", new Polynom("x +1"),cf3);
 		cf4.plus(new Monom("2"));

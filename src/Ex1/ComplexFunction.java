@@ -1,13 +1,13 @@
 package Ex1;
 
 public class ComplexFunction implements complex_function {
-	
+
 	function l;
 	function r;
 	Operation OP;
-	
+
 	public ComplexFunction () {;}
-	
+
 	public ComplexFunction (String o, function l , function r) {
 
 		if ( l != null ) {
@@ -45,19 +45,19 @@ public class ComplexFunction implements complex_function {
 
 		case "Divid": 
 			if(this.r.f(x)!=0) {
-			return this.l.f(x) / this.r.f(x);
+				return this.l.f(x) / this.r.f(x);
 			} else { throw new RuntimeException("Can't divide by 0");}
 
 		case "Max"  : return Math.max(this.l.f(x),this.r.f(x));
-			
+
 		case "Min"  : return Math.min(this.l.f(x),this.r.f(x));
 
 		case "Comp" : 
 			if (this.r != null ) {
 				return this.l.f(this.r.f(x));
 			}
-				return this.l.f(x);
-		
+			return this.l.f(x);
+
 		case "None" :
 			return this.l.f(x);
 		}	
@@ -65,9 +65,9 @@ public class ComplexFunction implements complex_function {
 	}
 
 	@Override
-	 /**
-	  * @return string that represent this complex function.
-	  */
+	/**
+	 * @return string that represent this complex function.
+	 */
 	public String toString() {
 		String ans="";
 		String op ="";
@@ -111,7 +111,7 @@ public class ComplexFunction implements complex_function {
 		}
 		return t;
 	}
-	
+
 	@Override
 	/**
 	 * @param s - string in a complex function form.
@@ -139,21 +139,21 @@ public class ComplexFunction implements complex_function {
 			s3.toLowerCase();
 			String s4="";
 			switch(s3) {
-				
+
 			case "plus"	: s4="Plus"; break;
-			
+
 			case "mul"	: s4="Times"; break;
-			
+
 			case "div"	: s4="Divid"; break;
-			
+
 			case "max" 	: s4="Max"; break;
-			
+
 			case "min"	: s4="Min"; break;
-			
+
 			case "comp"	: s4="Comp"; break;
-				
-				default : s4="None"; break;
-			
+
+			default : s4="None"; break;
+
 			}
 			function fun= new ComplexFunction(s4, left, right);
 			return fun;
@@ -194,7 +194,7 @@ public class ComplexFunction implements complex_function {
 		function newF= new ComplexFunction(this.OP.toString(), this.l, this.r);
 		return newF;
 	}
-	
+
 	/**
 	 * this method try to understand if those are approximately equals.
 	 * (Compare those functions in many x-values to understand it.) 
@@ -202,7 +202,7 @@ public class ComplexFunction implements complex_function {
 	 */
 	@Override
 	public boolean equals (Object obj) {
-		
+
 		if ((obj instanceof ComplexFunction)) {
 			boolean flag = true;
 			ComplexFunction c = (ComplexFunction)obj;
@@ -216,23 +216,23 @@ public class ComplexFunction implements complex_function {
 			}
 			return true;
 		}
-		
+
 		if (obj instanceof Monom) {
 			Polynom p = new Polynom(((Monom)obj).toString());
 			ComplexFunction c = new ComplexFunction(p);
 			return this.equals(c);
 		}
-		
+
 		if (obj instanceof Polynom) {
 			ComplexFunction c = new ComplexFunction((Polynom)obj);
 			return this.equals(c);
 		}
-		
+
 		return false;	
 	}
 
 	///////////// complex_function /////////////
-	
+
 	@Override
 	public void plus(function fR) {
 		if ( this.r != null ) {
@@ -294,18 +294,18 @@ public class ComplexFunction implements complex_function {
 	}
 
 	///////////// --- Getters --- /////////////
-	
+
 	@Override
 	public function left() {
 		if (this.l==null) { System.out.println("Is null, Should not be!");}
 		return this.l;
 	}
-	
+
 	@Override
 	public function right() {
 		return this.r;
 	}
-	
+
 	@Override
 	public Operation getOp() {
 		return this.OP;

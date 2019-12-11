@@ -14,7 +14,7 @@ public interface cont_function extends function{
 	 * @return the approximated area above X-axis below this function bounded in the range of [x0,x1]
 	 */
 	public double area(double x0, double x1, double eps);
-	
+
 	/**
 	 * Compute a value x' (x0<=x'<=x1) for with |f(x')| < eps
 	 * assuming (f(x0)*f(x1)<=0, else should throws runtimeException 

@@ -9,7 +9,7 @@ import Ex1.Polynom;
 import Ex1.Polynom_able;
 
 class PolynomTesting {
-	
+
 	public static final double EPSILON = 0.0001;
 
 	@Test
@@ -59,13 +59,13 @@ class PolynomTesting {
 
 	@Test
 	void testSubtractMonom() {
-			Polynom p = new Polynom("x^3+2x^2+3x");
-			Polynom e = new Polynom("x^3+2x^2");
-			Monom m = new Monom("3x");
-			p.subtract(m);
-			if(!p.equals(e)) {
-				fail("bad bad bad");
-			}
+		Polynom p = new Polynom("x^3+2x^2+3x");
+		Polynom e = new Polynom("x^3+2x^2");
+		Monom m = new Monom("3x");
+		p.subtract(m);
+		if(!p.equals(e)) {
+			fail("bad bad bad");
+		}
 	}
 
 	@Test

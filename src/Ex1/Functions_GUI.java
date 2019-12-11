@@ -18,9 +18,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Functions_GUI implements functions{
-	
+
 	ArrayList<function> G = new ArrayList<function>();
-		
+
 	public Functions_GUI() {
 		G = new ArrayList<function>();
 	}
@@ -57,7 +57,7 @@ public class Functions_GUI implements functions{
 
 	@Override
 	public boolean add(function e) {
-		 return G.add(e);
+		return G.add(e);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class Functions_GUI implements functions{
 	public void clear() {
 		G.clear();
 	}
-	
+
 	public function get(int i) {
 		return G.get(i);
 	}
@@ -103,20 +103,20 @@ public class Functions_GUI implements functions{
 		function t = new ComplexFunction();
 		String line="";
 		try 
-        {
-        	BufferedReader br = new BufferedReader(new FileReader(file));
-        	
-            while ((line = br.readLine()) != null) 
-            {
-                G.add(t.initFromString(line));
-            }
-        } 
-        catch (IOException e) 
-        {
-            e.printStackTrace();
-            System.out.println("could not read file");
-        }
-		
+		{
+			BufferedReader br = new BufferedReader(new FileReader(file));
+
+			while ((line = br.readLine()) != null) 
+			{
+				G.add(t.initFromString(line));
+			}
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+			System.out.println("could not read file");
+		}
+
 	}
 
 	@Override
@@ -124,14 +124,14 @@ public class Functions_GUI implements functions{
 	 * this mmethod write the G functions in a given text file.
 	 */
 	public void saveToFile(String file) throws IOException {
-		
+
 		Iterator<function> it = G.iterator();
-		
+
 		try 
 		{
 			PrintWriter pw = new PrintWriter(new File(file));
 			StringBuilder sb = new StringBuilder();
-			
+
 			while (it.hasNext()) {
 				function f = it.next();
 				sb.append(f.toString()+"\n");
@@ -151,12 +151,12 @@ public class Functions_GUI implements functions{
 	 * this method draws the G functions on a canvas window with Axiss.
 	 */
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		
+
 		StdDraw.setCanvasSize(width, height);
 		//Drawing Axis
 		StdDraw.setXscale(rx.get_min(), rx.get_max());
 		StdDraw.setYscale(ry.get_min(), ry.get_max());
-		
+
 		//Start setting lines on canvas.
 		StdDraw.setPenColor(Color.LIGHT_GRAY);
 		for (double i = rx.get_min(); i <= rx.get_max(); i++) {
@@ -165,14 +165,14 @@ public class Functions_GUI implements functions{
 		for (double i = ry.get_min(); i <= ry.get_max(); i++) {
 			StdDraw.line(rx.get_min(), i, rx.get_max(), i);
 		}
-		
+
 		StdDraw.setPenColor(Color.BLACK);
 		StdDraw.setPenRadius(0.005);
 		//Numbers on Axis
 		StdDraw.setFont(new Font("Calibri", Font.ITALIC, 14));
 		StdDraw.line(rx.get_min(), 0, rx.get_max(), 0);
 		StdDraw.line(0, ry.get_min(), 0, ry.get_max());
-		
+
 		for (double i = rx.get_min(); i <= rx.get_max(); i++) {
 			StdDraw.text(i, -0.30, Integer.toString(Math.toIntExact((long) i)));
 		}
@@ -192,7 +192,7 @@ public class Functions_GUI implements functions{
 				StdDraw.line(i, f.f(i), i+step, f.f(i+step));
 			}
 		}
-		
+
 		/* --//Not enoght colors -- Did not use eventually.--
 		for (int j=0; j<G.size(); j++) {
 			double step = (Math.abs(rx.get_min())+Math.abs(rx.get_max()))/resolution;
@@ -204,9 +204,9 @@ public class Functions_GUI implements functions{
 				StdDraw.line(i, f.f(i), i+step, f.f(i+step));
 			}
 		}
-		*/
+		 */
 	}
-			
+
 	@Override
 	/**
 	 * this method reads the parameters out of json file and draw the G functions on a canvas.
@@ -218,7 +218,7 @@ public class Functions_GUI implements functions{
 		Range ry = new Range(-5,15);
 		double [] Range_X = {-10,10};
 		double [] Range_Y = {-5,-15};
-		
+
 		try {
 			JSONObject o = (JSONObject)new JSONParser().parse(new FileReader(json_file));
 			JSONArray X;
@@ -226,21 +226,21 @@ public class Functions_GUI implements functions{
 			if(o.get("Width")	   != null){   w = Math.toIntExact((long) o.get("Width")); }
 			if(o.get("Height") 	   != null){   h = Math.toIntExact((long) o.get("Height")); }
 			if(o.get("Resolution") != null){ res = Math.toIntExact((long) o.get("Resolution")); }
-			
+
 			if(o.get("Range_X")    != null){
 				X = (JSONArray) o.get("Range_X");
 				Iterator<Long> it = X.iterator();
 				int i=0;
 				while(it.hasNext() && i<2){ Range_X[i++] = (double)it.next().doubleValue(); }					
 			}
-			
+
 			if(o.get("Range_Y") != null){
 				Y = (JSONArray) o.get("Range_Y");
 				Iterator<Long> itr = Y.iterator();
 				int i=0;
 				while(itr.hasNext() && i<2){ Range_Y[i++] = (double)itr.next().doubleValue(); }					
 			}
-			
+
 			rx = new Range(Range_X[0], Range_X[1]);
 			ry = new Range(Range_Y[0], Range_Y[1]);
 			drawFunctions(w, h, rx, ry, res);

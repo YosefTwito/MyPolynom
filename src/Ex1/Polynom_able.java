@@ -71,7 +71,7 @@ public interface Polynom_able extends cont_function{
 	 * @return
 	 */
 	public boolean isZero();
-	
+
 	/**
 	 * create a deep copy of this Polynom
 	 * @return 
