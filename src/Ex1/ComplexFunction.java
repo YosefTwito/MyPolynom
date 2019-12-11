@@ -201,23 +201,34 @@ public class ComplexFunction implements complex_function {
 	 * @return true if ot approximately equals to this complex function, otherwise return false.
 	 */
 	@Override
-	public boolean equals (Object ot) {
+	public boolean equals (Object obj) {
 		
-	/*	if ((ot instanceof ComplexFunction)) { return false; }
-		boolean flag = true;
-		ComplexFunction c = (ComplexFunction)ot;
-		if (this.l!=c.l)   { flag = false; }
-		if (this.OP!=c.OP) { flag = false; }
-		if (this.r!=c.r)   { flag = false; }
-		
-		if (flag==true) { return true; }*/
-		
-		ComplexFunction c = (ComplexFunction)ot;
+		if ((obj instanceof ComplexFunction)) {
+			boolean flag = true;
+			ComplexFunction c = (ComplexFunction)obj;
+			if (this.l!=c.l)   { flag = false; }
+			if (this.OP!=c.OP) { flag = false; }
+			if (this.r!=c.r)   { flag = false; }
+			if (flag==true) { return true; }
 
-		for (int i=-10; i<10; i++) 
-		{ if (Math.abs(this.f(i)-c.f(i))>0.0001) { return false; } }
-			
-		return true;
+			for (double i=-10.1; i<10.1; i+=1){
+				if (Math.abs(this.f(i)-c.f(i))>0.0001) { return false; } 
+			}
+			return true;
+		}
+		
+		if (obj instanceof Monom) {
+			Polynom p = new Polynom(((Monom)obj).toString());
+			ComplexFunction c = new ComplexFunction(p);
+			return this.equals(c);
+		}
+		
+		if (obj instanceof Polynom) {
+			ComplexFunction c = new ComplexFunction((Polynom)obj);
+			return this.equals(c);
+		}
+		
+		return false;	
 	}
 
 	///////////// complex_function /////////////
