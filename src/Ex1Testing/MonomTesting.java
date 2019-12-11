@@ -8,7 +8,7 @@ import Ex1.Monom;
 
 class MonomTesting {
 
-	public static final double EPSILON = 0.0000001;
+	public static final double EPSILON = 0.000001;
 
 	@Test
 	void testDerivative() {

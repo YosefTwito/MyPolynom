@@ -67,7 +67,7 @@ class ComplexFunctionTest {
 		try {
 			x = x.initFromString(expected);
 		}catch (Exception e) { fail(); }
-		
+
 
 	}
 
@@ -79,10 +79,10 @@ class ComplexFunctionTest {
 		ComplexFunction t2 = (ComplexFunction)t1.copy();
 		if (!(t1.f(2)==t2.f(2))) {fail();} //check if copied.
 		t1.plus(a);
-	//	System.out.println(t1.f(2));
-	//	System.out.println(t2.f(2));
+		//	System.out.println(t1.f(2));
+		//	System.out.println(t2.f(2));
 		if (t1.f(2)==t2.f(2)) {fail();} //check deep copy after adding to the original func.
-		
+
 	}
 
 	@Test
@@ -92,10 +92,10 @@ class ComplexFunctionTest {
 		ComplexFunction t1 = new ComplexFunction("Plus", a, b);
 		ComplexFunction t2 = new ComplexFunction("Plus", a, b);
 		if (!(t1.equals(t2))) { fail();}
-		
+
 		t2 = new ComplexFunction("Plus", b, a);
 		if (!(t1.equals(t2))) { fail();}
-		
+
 		function c = new Polynom("x^2+2x");
 		function d = new Polynom("0");
 		t2 = new ComplexFunction("Plus", c, d);

@@ -14,6 +14,7 @@ import Ex1.Monom;
 import Ex1.Polynom;
 import Ex1.Range;
 import Ex1.function;
+import Ex1.functions;
 
 /**
  * Partial JUnit + main test for the GUI_Functions class, expected output from the main:
@@ -30,67 +31,66 @@ import Ex1.function;
  */
 class Functions_GUITest {
 	public static void main(String[] a) {
-		Functions_GUI data = FunctionsFactory();
+		Functions_GUI data = (Functions_GUI)FunctionsFactory();
 		int w=1000, h=600, res=200;
 		Range rx = new Range(-10,10);
 		Range ry = new Range(-5,15);
 		data.drawFunctions(w,h,rx,ry,res);
-		//data.drawFunctions("ab.txt");
+		data.drawFunctions("json_param.txt");
 	}
-	
+
 	private Functions_GUI _data=null;
-	
+
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {;}
-	
+
 	@BeforeEach 
 	void setUp() throws Exception {
-		_data = FunctionsFactory();
+		_data = (Functions_GUI)FunctionsFactory();
 	}
 
 	@Test
-	void testInitFromFile() {
-		
+	void testInitAndSaveFile() {
+
 		function t = new ComplexFunction();
-		String [] expectedS = {"plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0)" , 
+		String [] expectedS = {"plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0)" , 
 				"plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)" ,
-				"div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)" , 
+				"div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)" , 
 				"-1.0x^4+2.4x^2+3.1" ,
-				"0.1x^5-1.2999999999999998x+5.0" , 
-				"max(max(max(max(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.2999999999999998x+5.0)" ,
-				"min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.2999999999999998x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.2999999999999998x+5.0)" };
-		
-		Functions_GUI expectedF = new Functions_GUI();
+				"0.1x^5-1.3x+5.0" , 
+				"max(max(max(max(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.3x+5.0)" ,
+		"min(min(min(min(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),plus(div(x+1,mul(mul(x+3.0,x-2.0),x-4.0)),2.0)),div(plus(-1.0x^4+2.4x^2+3.1,0.1x^5-1.3x+5.0),-1.0x^4+2.4x^2+3.1)),-1.0x^4+2.4x^2+3.1),0.1x^5-1.3x+5.0)" };
+
+
+		Functions_GUI Fit = new Functions_GUI();
 		for (int j=0; j<expectedS.length; j++) {
-			expectedF.add(t.initFromString(expectedS[j]));
+			Fit.add(t.initFromString(expectedS[j]));
 		}
-		
+
 		try {
-			_data.initFromFile("a.txt");
+			Fit.saveToFile("testIt.txt");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		Functions_GUI Fnew = new Functions_GUI();
+
+		try {
+			Fnew.initFromFile("testIt.txt");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		Iterator<function> i = _data.iterator();
-		Iterator<function> k = expectedF.iterator();
 
-		while (i.hasNext() && k.hasNext()) { 
-			i.next(); k.next();
-		//	if (!(i.next().equals(k.next()))) { fail(); }
-			}
-	}
+		if (Fit.size()!=Fnew.size()) { fail(); }
 
-	@Test
-	void testSaveToFile() {
-		try {
-			_data.saveToFile("a.txt");
-		} catch (IOException e) {
-			e.printStackTrace();
+		for (int i=0; i<Fit.size();i++) {
+			if (!(Fit.get(i).equals(Fnew.get(i)))){ fail(); }
 		}
 	}
 
-public static Functions_GUI FunctionsFactory() {
-		Functions_GUI ans = new Functions_GUI();
+
+	public static functions FunctionsFactory() {
+		functions ans = new Functions_GUI();
 		String s1 = "3.1 +2.4x^2 -x^4";
 		String s2 = "5 +2x -3.3x +0.1x^5";
 		String[] s3 = {"x +3","x -2", "x -4"};
@@ -100,8 +100,9 @@ public static Functions_GUI FunctionsFactory() {
 		ComplexFunction cf3 = new ComplexFunction(p3);
 		for(int i=1;i<s3.length;i++) {
 			cf3.mul(new Polynom(s3[i]));
-		}	
-		ComplexFunction cf = new ComplexFunction("plus", p1,p2);
+		}
+
+		ComplexFunction cf = new ComplexFunction("Plus", p1,p2);
 		ComplexFunction cf4 = new ComplexFunction("Divid", new Polynom("x +1"),cf3);
 		cf4.plus(new Monom("2"));
 		ans.add(cf.copy());
@@ -113,15 +114,17 @@ public static Functions_GUI FunctionsFactory() {
 		function cf6 = cf4.initFromString(s2);
 		ans.add(cf5.copy());
 		ans.add(cf6.copy());
-		ComplexFunction max = new ComplexFunction(ans.get(0).copy());
-		ComplexFunction min = new ComplexFunction(ans.get(0).copy());
-		for(int i=1;i<ans.size();i++) {
-			max.max(ans.get(i));
-			min.min(ans.get(i));
+		Iterator<function> iter = ans.iterator();
+		function f = iter.next();
+		ComplexFunction max = new ComplexFunction(f);
+		ComplexFunction min = new ComplexFunction(f);
+		while(iter.hasNext()) {
+			f = iter.next();
+			max.max(f);
+			min.min(f);
 		}
 		ans.add(max);
-		ans.add(min);
-		
+		ans.add(min);		
 		return ans;
 	}
 }
