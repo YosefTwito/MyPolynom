@@ -151,7 +151,7 @@ public class Functions_GUI implements functions{
 	 * this method draws the G functions on a canvas window with Axiss.
 	 */
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-
+		//Window size
 		StdDraw.setCanvasSize(width, height);
 		//Drawing Axis
 		StdDraw.setXscale(rx.get_min(), rx.get_max());

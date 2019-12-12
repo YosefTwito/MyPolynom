@@ -4,6 +4,7 @@ package Ex1;
  * None representing no Operation and Error representing an unknown (aka unsupported) Operation.
  * @author YosefTwito
  */
+
 public enum Operation {
 	Plus, Times, Divid, Max, Min, Comp , None, Error
 }

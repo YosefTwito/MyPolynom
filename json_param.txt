@@ -2,6 +2,6 @@
 	"Width":1120,
 	"Height":630,
 	"Resolution":100,
-	"Range_X":[-12,12],
-	"Range_Y":[-7,18]
+	"Range_X":[-9,9],
+	"Range_Y":[-5,14]
 }

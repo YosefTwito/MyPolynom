@@ -161,7 +161,6 @@ public class ComplexFunction implements complex_function {
 	}
 
 	/**
-	 * 
 	 * @param s - string that represents a complex function
 	 * @param i - location after "("
 	 * @return location of the split (left and right)

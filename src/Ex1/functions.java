@@ -14,7 +14,6 @@ public interface functions extends Collection<function>{
 	 */
 	public void initFromFile(String file) throws IOException;
 	/**
-	 * 
 	 * @param file - the file name
 	 * @throws IOException if the file is not writable
 	 */
