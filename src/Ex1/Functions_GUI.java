@@ -180,6 +180,7 @@ public class Functions_GUI implements functions{
 			StdDraw.text(-0.20,i, Integer.toString(Math.toIntExact((long) i)));
 		}
 		//Drawing functions.
+		int jj=1;
 		for (function f : G) {
 			double step = (Math.abs(rx.get_min())+Math.abs(rx.get_max()))/resolution;
 			int R = (int)(Math.random()*256);
@@ -191,6 +192,10 @@ public class Functions_GUI implements functions{
 			{
 				StdDraw.line(i, f.f(i), i+step, f.f(i+step));
 			}
+			System.out.print(jj+") "+"Color[R="+R+", G="+G+", B="+B+"] - f(x) = ");
+			System.out.println(f.toString());
+			
+			jj++;
 		}
 
 		/* --//Not enoght colors -- Did not use eventually.--

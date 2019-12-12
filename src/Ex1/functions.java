@@ -20,7 +20,7 @@ public interface functions extends Collection<function>{
 	public void saveToFile(String file) throws IOException;
 	/**
 	 * Draws all the functions in the collection in a GUI window using the
-	 * given parameters for the GUI windo and the range & resolution
+	 * given parameters for the GUI window and the range & resolution
 	 * @param width - the width of the window - in pixels
 	 * @param height - the height of the window - in pixels
 	 * @param rx - the range of the horizontal axis
@@ -31,7 +31,7 @@ public interface functions extends Collection<function>{
 	/**
 	 * Draws all the functions in the collection in a GUI window using the given JSON file
 	 * @param json_file - the file with all the parameters for the GUI window. 
-	 * Note: is the file id not readable or in wrong format should use default values. 
+	 * Note: if the file is not readable or in wrong format should use default values. 
 	 */
 	public void drawFunctions(String json_file);
 }
